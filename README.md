@@ -30,19 +30,20 @@ For libgcov you will need the following libraries that should be added to the
 * `libunwind`
 * `libc`, e.g. `newlib`
 
-In order to use the `PGO` mechanism, the `fprofile-generate` and `fprofile-use`
+In order to use the `PGO` mechanism, the `-fprofile-generate` and `-fprofile-use`
 flags should be added to the `Makefile.uk` of the application running in Unikraft.
 
 For example, if you want to use the `PGO` mechanism for the `helloworld`
 application you have to add the following lines in the `Makefile.uk`:
 
-`APPHELLOWORLD_CFLAGS -$(CONFIG_OPTIMIZE_PGO_GENERATE)          += -fprofile-generate`
-
-`APPHELLOWORLD_CFLAGS -$(CONFIG_OPTIMIZE_PGO_USE)               += -fprofile-use`
+```
+APPHELLOWORLD_CFLAGS-$(CONFIG_OPTIMIZE_PGO_GENERATE)	+= -fprofile-generate
+APPHELLOWORLD_CFLAGS-$(CONFIG_OPTIMIZE_PGO_USE)			+= -fprofile-use
+```
 
 Several header files should be generated to successfully compile the source files
-from the libgcov library. These headers have already been generated and can be found
-in the `libgcov/include` directory. If you want to generate again the files, you need
+from the libgcov library. These headers have already been generated in the
+`libgcov/include` directory. If you want to generate again the files, you need
 to download the `GCC` sources and run the following commands:
 
 * in the `libgcc` directory:
