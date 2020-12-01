@@ -38,7 +38,7 @@ application you have to add the following lines in the `Makefile.uk`:
 
 ```
 APPHELLOWORLD_CFLAGS-$(CONFIG_OPTIMIZE_PGO_GENERATE)	+= -fprofile-generate
-APPHELLOWORLD_CFLAGS-$(CONFIG_OPTIMIZE_PGO_USE)			+= -fprofile-use
+APPHELLOWORLD_CFLAGS-$(CONFIG_OPTIMIZE_PGO_USE)        += -fprofile-use
 ```
 
 Several header files should be generated to successfully compile the source files
