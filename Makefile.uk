@@ -50,7 +50,9 @@ $(eval $(call addlib_s,libgcov,$(CONFIG_LIBGCOV)))
 LIBGCC_VERSION=7.3.0
 LIBGCC_URL=https://ftp.gnu.org/gnu/gcc/gcc-$(LIBGCC_VERSION)/gcc-$(LIBGCC_VERSION).tar.gz
 LIBGCC_SUBDIR=gcc-$(LIBGCC_VERSION)
+LIBGCC_PATCHDIR=$(LIBGCC_BASE)/patches
 $(eval $(call fetch,libgcc,$(LIBGCC_URL)))
+$(eval $(call patch,libgcc,$(LIBGCC_PATCHDIR),gcc-$(LIBGCC_VERSION)))
 
 ################################################################################
 # Helpers

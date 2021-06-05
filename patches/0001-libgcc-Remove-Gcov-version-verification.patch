@@ -1,0 +1,46 @@
+From 7898d0181b4aea23e0f6630ccb6c06f19ba8f584 Mon Sep 17 00:00:00 2001
+Message-Id: <7898d0181b4aea23e0f6630ccb6c06f19ba8f584.1622904469.git.razvan.deaconescu@cs.pub.ro>
+From: Razvan Deaconescu <razvan.deaconescu@cs.pub.ro>
+Date: Sat, 5 Jun 2021 17:44:04 +0300
+Subject: [PATCH] libgcc: Remove Gcov version verification
+
+The gcov_version() function verifies the GCC version used to build
+Unikraft against the libgcc version (currently 7.3.0) that includes the
+Gcov functions used at runtime. As we don't control the GCC version,
+these may mismatch.
+
+With the hope that the Gcov support introduced by GCC will be compatible
+with the expected format inspected by the libgcc runtime, we make
+gcov_version() always return true, i.e. there will be no version
+mismatch.
+
+Signed-off-by: Razvan Deaconescu <razvan.deaconescu@cs.pub.ro>
+---
+ libgcc/libgcov-driver.c | 11 -----------
+ 1 file changed, 11 deletions(-)
+
+diff --git a/libgcc/libgcov-driver.c b/libgcc/libgcov-driver.c
+index c3b2fd4d5..a9a1722cd 100644
+--- a/libgcc/libgcov-driver.c
++++ b/libgcc/libgcov-driver.c
+@@ -185,17 +185,6 @@ static int
+ gcov_version (struct gcov_info *ptr, gcov_unsigned_t version,
+               const char *filename)
+ {
+-  if (version != GCOV_VERSION)
+-    {
+-      char v[4], e[4];
+-
+-      GCOV_UNSIGNED2STRING (v, version);
+-      GCOV_UNSIGNED2STRING (e, GCOV_VERSION);
+-
+-      gcov_error ("profiling:%s:Version mismatch - expected %.4s got %.4s\n",
+-                  filename? filename : ptr->filename, e, v);
+-      return 0;
+-    }
+   return 1;
+ }
+ 
+-- 
+2.17.1
+
